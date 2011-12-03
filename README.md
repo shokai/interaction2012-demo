@@ -20,3 +20,4 @@ MacにMacPortsで入れたplatex-utf8を使っています
 
     % sh build.sh
 
+texをビルドしてinteraction.pdfを作り、Previewで開きます
