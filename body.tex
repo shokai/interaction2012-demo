@@ -1,0 +1,66 @@
+
+% 和文概要
+\begin{abstract}
+JavaScriptとAndroid NFCで実世界コンピューティングできるしくみを作った。インストールも不要。
+\end{abstract}
+
+% 英文概要
+\begin{eabstract}
+English is ok.
+\end{eabstract}
+
+\maketitle
+
+% 本文はここから始まる
+\section{実世界コンピューティング}\label{sec:Introduction}
+実世界コンピューティングいろいろあるよね。ボタンびっしりとかじゃなくてセンサーとか使ったりコンテキスト読んだりとかでいろいろ工夫されてきた。基礎技術としては以下の5つの事が研究されていて、さらにその上にアプリが実装されている。GoldFishなら以下5つとも簡単に使えるぜ！！
+
+\subsection{対象の指示}
+GUIだと名前入力かアイコンだけど、実世界だと指さしたりタッチしたり声だったり。
+
+\subsection{操作方法}
+ジェスチャーとか。
+
+\subsection{使用者の判別}
+人が判別できる。（コンテキストアウェアにまとめてもいいかも）
+
+\subsection{他のシステムとの通信}
+Web APIを使ったものが最近は多い。センサーとインターネットをつなぐといろいろ楽しいです。
+
+\section{GoldFishの実装}
+JavaScriptインタフェースを使ってJavaの関数をラップしている。
+Androidアプリはwebページを読み込んで実行する。
+NFCタグのIDとURLをひもづけるしくみがある。
+
+\section{GoldFishアプリの例}
+\section{実世界コピペ}
+パソコンからパソコンへコピペできる。実装はSinatraとEventMachineで作ったhttp cometサーバーとmemcachedとChorme拡張です。
+
+\section{ドアを開ける}
+N園〜
+
+\section{マウス}
+
+\section{写真立て}
+
+
+\section{GoldFishを使ってアプリケーションを作成する}
+\subsection{実世界コピペを動かしてみよう}
+すぐ動かせるので、実際動かしてみましょう。
+AndroidマーケットからGoldFishをインストールします。NFCタグや学生証やSuicaなどを用意します。
+
+\subsection{アプリを作ってみよう}
+webアプリを作る。goldfish.jsを読み込む。goldfish.foo()という関数が使える。
+
+
+\section{まとめ}
+おまえらGoldFishつかってみろ。いろいろ捗るぞ
+
+
+\begin{thebibliography}{10}
+
+\bibitem{goldfish}
+GoldFish. http://ubif.org
+
+\end{thebibliography}
+
