@@ -1,8 +1,12 @@
-all:
-	platex -kanji=utf8 interaction2012
-pdf:
-	dvipdfmx interaction2012
+NAME=interaction2012
+LATEX=platex -kanji=utf8
 
+all: dvi pdf
+dvi:
+	$(LATEX) $(NAME)
+	$(LATEX) $(NAME)
+pdf:
+	dvipdfmx $(NAME)
 
 #!/bin/sh
 #name=interaction2012

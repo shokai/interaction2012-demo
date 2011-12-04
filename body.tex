@@ -13,7 +13,15 @@ English abstract.
 
 % 本文はここから始まる
 \section{実世界GUI}\label{sec:Introduction}
-実世界コンピューティングいろいろあるよね。ボタンびっしりとかじゃなくてセンサーとか使ったりコンテキスト読んだりとかでいろいろ工夫されてきた。基礎技術としては以下の5つの事が研究されていて、さらにその上にアプリが実装されている。GoldFishなら以下5つとも簡単に使えるぜ！！
+
+実世界コンピューティングいろいろあるよね。
+ボタンびっしりとかじゃなくてセンサーとか使ったりコンテキスト読んだりとかでいろいろ工夫されてきた。
+基礎技術としては以下の5つの事が研究されていて、
+さらにその上にアプリが実装されている。
+GoldFishなら以下5つとも簡単に使えるぜ！！
+
+% この5つって誰が書いたもの?
+% 昔の実世界GUI論文ではユーザ判別はしてなかった
 
 \subsection{対象の指示}
 GUIだと名前入力かアイコンだけど、実世界だと指さしたりタッチしたり声だったり。
@@ -29,24 +37,40 @@ ubi-wa[]、塚田さんのやつ[]、mouse field[]、field mouse[]
 人が判別できる。（コンテキストアウェアにまとめてもいいかも）
 
 \subsection{他のシステムとの通信}
-Web APIを使ったものが最近は多い。センサーとインターネットをつなぐといろいろ楽しいです。Ambient Media系を調べる。
+
+Web APIを使ったものが最近は多い。
+センサーとインターネットをつなぐといろいろ楽しいです。Ambient Media系を調べる。
 
 \section{GoldFish}
-GoldFishは実世界GUIを実装するためのフレームワークである。JavaScriptだけでAndroidアプリを実装でき、アプリケーションはAndroid端末にインストールする必要がない。ユーザーがAndroid端末で実世界の物に触れる事でアプリケーションが起動する。
+
+GoldFishは実世界GUIを実装するためのフレームワークである。
+JavaScriptだけでAndroidアプリを実装でき、アプリケーションはAndroid端末にインストールする必要がない。
+ユーザーがAndroid端末で実世界の物に触れる事でアプリケーションが起動する。
 
 \subsection{目的}
-まともに使えて、簡単に作れる、実世界GUIを作る。いろいろ実装されてるけど、ほんとにみんな自分の作ったもの常用してるのか？
+
+まともに使えて、簡単に作れる、実世界GUIを作る。
+いろいろ実装されてるけど、ほんとにみんな自分の作ったもの常用してるのか？
 
 \subsection{フレームワークの実装}
+
+最近のAndroidのおかげでFieldMouseをケータイだけで実装できるようになった。
+NFC+傾きセンサ などとして実装できるのは確かだがJavaで実装するのは面倒である。
+
 NFCタグを実世界の物に貼り付け、ubif.orgでNFCタグのIDとアプリケーションを関連付けておく
 JavaScriptインタフェースを使ってJavaの関数をラップしている。
 Androidアプリはwebページを読み込んで実行する。
 NFCタグのIDとURLをひもづけるしくみがある。
+
 \subsection{アプリケーションの実装}
+
 webページを作る。goldfish.jsをscriptタグで読み込む。goldfish用のJSの関数が増える。ubif.orgにアプリ登録し、NFCタグに触るとさっきのアプリがでるようになっている。
 
 
 \section{GoldFishアプリの例}
+
+例のひとつは最初の方に持ってきた方が良いかも
+
 \subsection{実世界コピペ}
 パソコンからパソコンへコピペできる。実装はSinatraとEventMachineで作ったhttp cometサーバーとmemcachedとChorme拡張です。
 
@@ -59,6 +83,9 @@ N園〜
 
 
 \section{GoldFishを使ってアプリケーションを作成する}
+
+解説じゃないんだからここは詳しくしない方がいい
+
 \subsection{実世界コピペを動かしてみよう}
 すぐ動かせるので、実際動かしてみましょう。
 AndroidマーケットからGoldFishをインストールします。NFCタグや学生証やSuicaなどを用意します。
@@ -69,6 +96,46 @@ webアプリを作る。goldfish.jsを読み込む。goldfish.foo()という関�
 \section{まとめ}
 おまえらGoldFishつかってみろ。いろいろ捗るぞ
 
+\section{関連研究}
+
+沢山ありすぎると思うが、
+実世界の家電的なものをコントロールするものをいろいろあげる。
+最近のTEIあたりからいろいろリストできないか?
+
+\begin{itemize}
+\item 古いもの
+
+\begin{verbatim}
+ケンブリッジでやってたやつ
+持ち歩くマウスの位置認識とかすることによって、どこでもマウスが使えたりする
+位置認識してマウスを使う、とかは新しいものもあるのでは
+\end{verbatim}
+
+\item リモコンをなんとかするもの
+
+\begin{verbatim}
+ノーマン本
+そもそもリモコンという考え方が間違っている
+\end{verbatim}
+
+\item カメラとか使うもの
+
+\begin{verbatim}
+Ubi-Wa (jstshingi.jp/abst/p/10/1020/cic-tokyoA06.pdf)
+ これ必要か?
+\end{verbatim}
+
+\item 装着するもの
+\begin{verbatim}
+Ubi-Finger
+  いろんなセンサを指に装着するのが面倒くさい
+\end{verbatim}
+
+\item 
+\item 
+\item 
+\item 
+\end{itemize}
 
 \begin{thebibliography}{10}
 
