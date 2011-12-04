@@ -6,34 +6,45 @@ JavaScriptとAndroid NFCで実世界コンピューティングできるしく�
 
 % 英文概要
 \begin{eabstract}
-English bstract.
+English abstract.
 \end{eabstract}
 
 \maketitle
 
 % 本文はここから始まる
-\section{実世界コンピューティング}\label{sec:Introduction}
+\section{実世界GUI}\label{sec:Introduction}
 実世界コンピューティングいろいろあるよね。ボタンびっしりとかじゃなくてセンサーとか使ったりコンテキスト読んだりとかでいろいろ工夫されてきた。基礎技術としては以下の5つの事が研究されていて、さらにその上にアプリが実装されている。GoldFishなら以下5つとも簡単に使えるぜ！！
 
 \subsection{対象の指示}
 GUIだと名前入力かアイコンだけど、実世界だと指さしたりタッチしたり声だったり。
+ubi-wa[]、塚田さんのやつ[]、mouse field[]、field mouse[]
 
 \subsection{操作方法}
-ジェスチャーとか。
+ジェスチャー。Pileus[]、画像認識、TUI系
 
-\subsection{コンテキストの判別}
-コンテキストアウェア。
+\subsection{利用状況の判別}
+コンテキストアウェア。人の姿勢の判別とか。
 
 \subsection{使用者の判別}
 人が判別できる。（コンテキストアウェアにまとめてもいいかも）
 
 \subsection{他のシステムとの通信}
-Web APIを使ったものが最近は多い。センサーとインターネットをつなぐといろいろ楽しいです。
+Web APIを使ったものが最近は多い。センサーとインターネットをつなぐといろいろ楽しいです。Ambient Media系を調べる。
 
-\section{GoldFishの実装}
+\section{GoldFish}
+GoldFishは実世界GUIを実装するためのフレームワークである。JavaScriptだけでAndroidアプリを実装でき、アプリケーションはAndroid端末にインストールする必要がない。ユーザーがAndroid端末で実世界の物に触れる事でアプリケーションが起動する。
+
+\subsection{目的}
+まともに使えて、簡単に作れる、実世界GUIを作る。いろいろ実装されてるけど、ほんとにみんな自分の作ったもの常用してるのか？
+
+\subsection{フレームワークの実装}
+NFCタグを実世界の物に貼り付け、ubif.orgでNFCタグのIDとアプリケーションを関連付けておく
 JavaScriptインタフェースを使ってJavaの関数をラップしている。
 Androidアプリはwebページを読み込んで実行する。
 NFCタグのIDとURLをひもづけるしくみがある。
+\subsection{アプリケーションの実装}
+webページを作る。goldfish.jsをscriptタグで読み込む。goldfish用のJSの関数が増える。ubif.orgにアプリ登録し、NFCタグに触るとさっきのアプリがでるようになっている。
+
 
 \section{GoldFishアプリの例}
 \subsection{実世界コピペ}
@@ -54,7 +65,6 @@ AndroidマーケットからGoldFishをインストールします。NFCタグ�
 
 \subsection{アプリを作ってみよう}
 webアプリを作る。goldfish.jsを読み込む。goldfish.foo()という関数が使える。
-
 
 \section{まとめ}
 おまえらGoldFishつかってみろ。いろいろ捗るぞ
