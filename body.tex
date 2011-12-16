@@ -19,7 +19,7 @@ English abstract.
 
 GUIには、コンピュータの画面上にゴミ箱や窓などの現実世界のメタファーを提示してユーザーに理解しやすくしている部分と、データを扱うためにドロップダウンメニューやスクロールバーなどのディスプレイならではの新しいユーザインタフェースが組み合わさってできている。我々の生活にはたくさんのコンピュータが埋め込まれているが、電子錠つきの自動ドアをキーパッドで操作して開けていたり、ラップトップPCから目の前にあるプリンターに印刷させるのに画面上でプリンタの名前を指定して送信したりと、操作と効果の対応がわかりにくかったり、効率が悪かったりする事がある。そうではなくむしろ、実世界でもGUIのようにメタファーによるインタフェースとデータ操作用インタフェースが混在している方が使い勝手が良いのではないかと考えた。
 
-既存の実世界GUIの研究から、1.対象の指定 2.ジェスチャーやGUIによる操作 3.ユーザーの判別 4.状況の判別 5.他のシステムとの通信が重要であると考えられる。これらを簡単に利用でき、また日常的に使えるような仕組みを作ることが本研究の目的である。
+既存の実世界GUIの研究から、1.対象の指定 2.ジェスチャーやGUIによる操作 3.ユーザーとコンテキストの判別 4.他のシステムとの通信 の4つの要素が重要であると考えられる。これらを簡単に利用でき、また日常的に使えるような仕組みを作ることが本研究の目的である。
 
 
 \section{GoldFish}
@@ -62,16 +62,16 @@ GoldFishはNFCタグを読んだ際に、あらかじめタグに対して登録
 \end{figure}
 
 \subsection{JavaScriptによるアプリケーションの実装方法}
-アプリケーションの実装は、GoldFishのサンプルページ\cite{sample}を見るとわかりやすい。Webページを作成し、goldfish.jsというJavaScriptライブラリを読み込むとAndroidネイティブのセンサーやGoldFish用の様々な機能が使用できる。1章で挙げた実世界GUIの実装に必要な5つの機能は、goldfish.tag関数で操作対象の指定、goldfish.gyroscopeやaccelerometerなどのセンサーによるジェスチャー入力、goldfish.id関数によるユーザーの判別、goldfish.tcpやajaxによるほかのシステムとの通信の組み合わせによって実現できる。
+アプリケーションの実装は、GoldFishのサンプルページ\cite{sample}を見るとわかりやすい。Webページを作成し、goldfish.jsというJavaScriptライブラリを読み込むとAndroidネイティブのセンサーやGoldFish用の様々な機能が使用できる。1章で挙げた実世界GUIの実装に必要な4つの機能は、goldfish.tag関数で操作対象の指定、goldfish.gyroscopeやaccelerometerなどのセンサーによるジェスチャー入力、goldfish.id関数によるユーザーの判別、goldfish.tcpやajaxによるほかのシステムとの通信の組み合わせによって実現できる。
 
 
 \section{その他のGoldFishアプリケーションの例}
 前章の実世界コピペの他にも、いくつかGoldFishを用いた実世界GUIを紹介する。
 
-\subsection{GoldFishドア}
+\subsection{ドア認証}
 大学の研究室の電子錠ドアをGoldFishで開閉するシステムを実装した。（図：\ref{fig:door}）Androidアプリケーション側の実装は、プログラムの基礎は学んだもののあまり書いたことのない大学3年生でも6時間ほどで実装できた。
 
-GoldFishドアは研究室の電子錠ドアに貼ってあるNFCタグに触り、ドアノブをひねるような動きでAndroid端末を回転させると
+研究室の電子錠ドアに貼ってあるNFCタグにAndroid端末で触り、ドアノブをひねるような動きでAndroid端末を回転させるとドアの鍵が開くアプリケーションである。JavaScript40行程度で書かれたGoldFishアプリケーションは、10ミリ秒毎にジャイロスコープを監視して角度が合計90度まわされるとAjaxでドアサーバーに開閉のリクエストを送る。ドアサーバーはPhidgetsサーボモーターとRubyのSinatraアプリケーションで実装されており、HTTP-POSTを受信するとドアの鍵を回して開ける。筆者らは日常的にこの仕組みを使っている。
 
 \begin{figure}
   \begin{center}
@@ -83,36 +83,39 @@ GoldFishドアは研究室の電子錠ドアに貼ってあるNFCタグに触り
 
 
 \subsection{マウス}
+GoldFishのUDP/IP関数を用いて、空中で操作するマウスとトラックパッドを実装した。机にNFCタグを貼り付けておき、その上にAndroid端末を乗せると目の前のMacを操作できるトラックパッドが現れる。MacではJRubyで実装したマウスサーバーが起動しており、UDPで受信した座標にマウスを移動させたり、クリックさせたりという指示を実行できる。
+
 
 \subsection{写真立て}
+Android端末を机の上の写真立てに乗せると、Flickrから取得した動物の写真がスライドショーとして表示されるアプリケーションを実装した。実装にはFlickrのJavaScript APIをGoldFishのAjaxから使用した。
 
 
 \section{まとめ}
-おまえらGoldFishつかってみろ。いろいろ捗るぞ
+GoldFishを使うことで実世界GUIアプリケーションを簡単に実装できる。GoldFishアプリケーションはJavaScriptで記述する事ができ、また操作対象の指定、ジェスチャーやGUIによる操作、ユーザーとコンテキストの判別、他のシステムとの通信を簡潔に記述できる機能がJavaScriptの関数として実装されている。
 
 
 \begin{thebibliography}{10}
 
-\bibitem{実世界GUI}
-増井俊之. 実世界GUIによる情報家電プログラミング. 情報処理学会ヒューマンインタフェース研究会研究報告 xx-HI-xx, July 2000.
+\bibitem{field-mouse}
+椎尾一郎, 増井俊之, 福地健太郎. FieldMouseによる実世界指向インタフェース. コンピュータソフトウェア, Vol.18, No.1, pp. 28-38, January 2001.
 
 \bibitem{Ubi-Finger}
 塚田浩二，安村通晃: Ubi-Finger:モバイル指向ジェスチャ入力デバイスの研究, 情報処理学会論文誌, Vol.43, No.12, pp.3675-3684 (2002)
 
+\bibitem{実世界GUI}
+増井俊之. 実世界GUIによる情報家電プログラミング. 情報処理学会ヒューマンインタフェース研究会研究報告 xx-HI-xx, July 2000.
+
 \bibitem{pick-and-drop}
 Jun Rekimoto, Pick-and-Drop: A Direct Manipulation Technique for Multiple Computer Environments, Proceedings of UIST'97, pp. 31-39, 1997.
-
-\bibitem{field-mouse}
-椎尾一郎, 増井俊之, 福地健太郎. FieldMouseによる実世界指向インタフェース. コンピュータソフトウェア, Vol.18, No.1, pp. 28-38, January 2001.
-
-\bibitem{github}
-GoldFishソースコード. https://github.com/shokai/goldfish
 
 \bibitem{goldfish}
 GoldFish. http://ubif.org
 
 \bibitem{sample}
 GoldFish App Sample. http://ubif.org/goldfish/sample
+
+\bibitem{github}
+ソースコード. https://github.com/shokai/goldfish
 
 \end{thebibliography}
 
