@@ -1,12 +1,12 @@
 
 % 和文概要
 \begin{abstract}
-JavaScriptとAndroid NFCで実世界GUIを実現できるフレームワーク GoldFishを実装した。GoldFishを使うことで、Android端末で実世界の物に触れることで操作対象を指定し、ユーザーやコンテキスト、ジェスチャー入力を認識して操作するアプリケーションを簡単に実装する事ができる。
+本論文ではAndroid携帯電話とNFCリーダーを用いて実世界GUIを実装するためのJavaScriptフレームワークを提案する。NFCリーダーと加速度センサーを使うと、ユーザーは画面上とマウスでのメニューやスクロールバーのような様々な操作をNFCタグ上で行える。全てのプログラムはWeb上に配置されたJavaScriptで実装され、ユーザーはAndroid携帯電話にたくさんのプログラムをインストールする必要なく、それらを利用できる。
 \end{abstract}
 
 % 英文概要
 \begin{eabstract}
-GoldFish is Real-world GUI Framework. It enables to develop Android application which detects the target object, user, context and gesture input using simple JavaScript and Android NFC.
+We introduce a JavaScript framework for developing ``Real-World GUI'' using an Android phone equipped with an NFC reader.  Using the NFC reader and motion sensors at the same time, users can control various parameters by moving the phone on NFC tags, just like using a mouse for controling menus and scroll bars on a computer display.  All the control programs are written in JavaScript and put on the Web as JavaScript programs, and users do not have to install different programs on their Android phones. 
 \end{eabstract}
 
 \maketitle
@@ -55,7 +55,7 @@ GoldFishはJavaで実装したネイティブアプリに、WebViewコンポー�
 GoldFishはNFCタグを読んだ際に、あらかじめタグに対して登録されているURLを読み込み、WebViewに表示する。NFCタグはGoldFishのwebサイトで登録できる。（図：\ref{fig:tags}）
 \begin{figure}
   \begin{center}
-    \includegraphics[height=70mm]{img/tags.png}
+    \includegraphics[height=80mm]{img/tags.png}
   \end{center}
   \caption{NFCタグ登録画面 http://ubif.org/goldfish/tag}
   \label{fig:tags}
