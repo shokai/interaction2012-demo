@@ -1,7 +1,7 @@
 
 % 和文概要
 \begin{abstract}
-JavaScriptとAndroid NFCで実世界コンピューティングできるしくみを作った。インストールも不要。
+JavaScriptとAndroid NFCを用いて、実世界GUIを実現するためのフレームワークGoldFishを実装した。GoldFishを使うことで、Androidで実世界の物に触れると触れた対象や使用者、状況によって様々なユーザインタフェースを表示させ、操作できるアプリケーションが簡単に作成できる。
 \end{abstract}
 
 % 英文概要
@@ -13,143 +13,106 @@ English abstract.
 
 % 本文ここから
 \section{実世界GUI}\label{sec:Introduction}
+本研究の目的は、実世界GUI\cite{実世界GUI}を日常的に使えるようにする事である。実世界GUIは、コンピュータのグラフィカルユーザインタフェース（GUI）に似たしくみを実世界で使うという概念である。
 
-実世界コンピューティングいろいろあるよね。
-ボタンびっしりとかじゃなくてセンサーとか使ったりコンテキスト読んだりとかでいろいろ工夫されてきた。
-基礎技術としては以下の5つの事が研究されていて、
-さらにその上にアプリが実装されている。
-GoldFishなら以下5つとも簡単に使えるぜ！！
+塚田らのUbi-Finger\cite{Ubi-Finger}は、対象を指さす事で選択し、ジェスチャーで操作するための手袋型装置を開発した。また暦本は複数のコンピュータ間でマウスのドラッグアンドドロップの様にデータをやりとりする手法\cite{pick-and-drop}を提案した。椎尾らは、マウスとバーコードリーダーを一体化させることであらゆる物に対してマウスで操作できるようにした。\cite{field-mouse}
 
-% この5つって誰が書いたもの?
-% 今自分で考えました
-% 昔の実世界GUI論文ではユーザ判別はしてなかった
+GUIには、コンピュータの画面上にゴミ箱や窓などの現実世界のメタファーを提示してユーザーに理解しやすくしている部分と、データを扱うためにドロップダウンメニューやスクロールバーなどのディスプレイならではの新しいユーザインタフェースが組み合わさってできている。我々の生活にはたくさんのコンピュータが埋め込まれているが、電子錠つきの自動ドアをキーパッドで操作して開けていたり、ラップトップPCから目の前にあるプリンターに印刷させるのに画面上でプリンタの名前を指定して送信したりと、操作と効果の対応がわかりにくかったり、効率が悪かったりする事がある。そうではなくむしろ、実世界でもGUIのようにメタファーによるインタフェースとデータ操作用インタフェースが混在している方が使い勝手が良いのではないかと考えた。
 
-\subsection{対象の指示}
-GUIだと名前入力かアイコンだけど、実世界だと指さしたりタッチしたり声だったり。
-ubi-wa[]、塚田さんのやつ[]、mouse field[]、field mouse[]、Pick-and-drop[]
+既存の実世界GUIの研究から、1.対象の指定 2.ジェスチャーやGUIによる操作 3.ユーザーの判別 4.状況の判別 5.他のシステムとの通信が重要であると考えられる。これらを簡単に利用でき、また日常的に使えるような仕組みを作ることが本研究の目的である。
 
-\subsection{操作方法}
-ジェスチャー。Pileus[]、画像認識、TUI系
-
-\subsection{利用状況の判別}
-コンテキストアウェア。人の姿勢の判別とか。
-
-\subsection{使用者の判別}
-人が判別できる。（コンテキストアウェアにまとめてもいいかも）
-
-\subsection{他のシステムとの通信}
-Web APIを使ったものが最近は多い。
-センサーとインターネットをつなぐといろいろ楽しいです。Ambient Media系を調べる。
 
 \section{GoldFish}
+GoldFishは実世界GUIを実装するためのフレームワークである。Android NFCを使い、実世界の様々な場所に貼ったNFCタグ（RFIDタグ）を読む事でそれぞれ個別のアプリケーションを起動させる事ができる。GoldFish上でのアプリケーションは通常のAndroidアプリケーションの様にJavaとXMLで実装して個々の端末にインストールするのではなく、JavaScriptとHTMLで実装してWeb上に公開し、GoldFishのWebサイトにそのURLとNFCタグの組み合わせを登録する事で各Android端末から呼び出される。プログラミングは初心者には敷居が高く、ましてや実世界の他の機器と連動したプログラムを書く事などは初心者には難しいが、GoldFishを使ったところプログラミング初心者でも半日で研究室の電子扉をジェスチャーで開けるシステムが実装できた。
 
-GoldFishは実世界GUIを実装するためのフレームワークである。
-JavaScriptだけでAndroidアプリを実装でき、アプリケーションはAndroid端末にインストールする必要がない。
-ユーザーがAndroid端末で実世界の物に触れる事でアプリケーションが起動する。
-
-\subsection{目的}
-
-まともに使えて、簡単に作れる、実世界GUIを作る。
-いろいろ実装されてるけど、ほんとにみんな自分の作ったもの常用してるのか？
-
-\subsection{フレームワークの実装}
-
-最近のAndroidのおかげでFieldMouseをケータイだけで実装できるようになった。
-NFC+傾きセンサ などとして実装できるのは確かだがJavaで実装するのは面倒である。
-
-NFCタグを実世界の物に貼り付け、ubif.orgでNFCタグのIDとアプリケーションを関連付けておく
-JavaScriptインタフェースを使ってJavaの関数をラップしている。
-Androidアプリはwebページを読み込んで実行する。
-NFCタグのIDとURLをひもづけるしくみがある。
-
-\subsection{アプリケーションの実装}
-
-webページを作る。goldfish.jsをscriptタグで読み込む。goldfish用のJSの関数が増える。ubif.orgにアプリ登録し、NFCタグに触るとさっきのアプリがでるようになっている。
+GoldFishはubif.org\cite{goldfish}で公開されており、ソースコードはgithubで公開されている。\cite{github}
 
 
-\section{GoldFishアプリの例}
+\subsection{GoldFishアプリケーションの例}
+GoldFishアプリケーションの例として、実世界コピペを実装した。コンピュータ同士の間でAndroidを用いてコピーアンドペーストができるアプリケーションである。あらかじめコンピュータにNFCタグを貼り付けておき、そこにAndroid端末で触れると金魚掬いの画面が表示される。（図：\ref{fig:copy-paste}）この画面でAndroid端末を右に掬うと、現在最前面に表示しているwebページがAndroidにコピーされる。別のコンピュータに触れてから左に流し込むとペーストが行われる。
 
-例のひとつは最初の方に持ってきた方が良いかも
+実世界コピペの実装では、GoldFishアプリケーションは各コンピュータと直接通信していない。GoldFishアプリケーションおよび各コンピュータははインターネット上のクリップボードサーバーと通信する。各コンピュータにはクリップボードクライアントがインストールされていて、それぞれ貼り付けられたNFCタグのIDが実行引数に与えられている。
+クリップボードサーバーはサーバーアプリケーションにRubyのSinatraとEventMachineを、データストアにMemCachedを使用して実装した。クリップボードクライアントはwebブラウザ用をGoogle Chrome Extensionで、Mac用アプリケーションをJRubyでそれぞれ実装した。
 
-\subsection{実世界コピペ}
-パソコンからパソコンへコピペできる。実装はSinatraとEventMachineで作ったhttp cometサーバーとmemcachedとChorme拡張です。
+Android上で動作するGoldFishアプリケーションは、JavaScriptのsetIntervalとgoldfish.accelerometer関数を用いて10ミリ秒毎に加速度センサーを監視する。1G以上の加速度が100ミリ秒以上連続で左右どちらにかかったかによって、Android端末をコピーとペーストどちらにジェスチャ入力したかを判別する。ジェスチャ入力値と端末IDとNFCタグのIDはAjaxでクリップボードサーバーに送信される。goldfish.id関数、goldfish.tag関数がそれぞれ端末IDとNFCタグのID取得に使える。各コンピュータにインストールされたクリップボードクライアントは、cometを用いてクリップボードサーバーから通信があるまで待機する。URLが送られてきた時はwebページを開き、またコピー命令が送られてきた時は現在開いているURLを返信する。
 
-\subsection{ドアを開ける}
-N園〜
+実世界コピペを使うと、これまでコンピュータ間での通信では機器同士が隣にあるにも関わらずデータ送信先の名前を入力したりアイコンをクリックしたりしていた操作を、直接指示でデータ送信できるようになる。他にもプリンターにデータを送信するのではなく、データを手で掴んで投げ込むと印刷されるといった理解しやすいユーザインタフェースが実装できる。
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[height=40mm]{img/copy-paste.jpg}
+  \end{center}
+  \caption{実世界コピペ}
+  \label{fig:copy-paste}
+\end{figure}
+
+
+\subsection{GoldFishフレームワークの実装}
+GoldFishでは、アプリケーションの実装にAndroidネイティブのJavaではなくJavaScriptを採用している。Javaはプログラム言語自体が複雑で難しく、またセンサーの値を監視しつつ画面を更新しつつ通信も行うなどの並行処理の記述がシンプルに記述できない。JavaScriptはシンプルなプログラム言語で、初心者にもよく薦められている。そして関数がファーストクラスオブジェクトなのでタイマーを用いた並行処理の記述も容易である。
+
+GoldFishはJavaで実装したネイティブアプリに、WebViewコンポーネントでwebページを表示している。WebView内のJavaScriptとAndroidネイティブのJavaが通信する事で、JavaScriptからセンサーなどの機能を呼び出せる。
+
+GoldFishはNFCタグを読んだ際に、あらかじめタグに対して登録されているURLを読み込み、WebViewに表示する。NFCタグはGoldFishのwebサイトで登録できる。（図：\ref{fig:tags}）
+\begin{figure}
+  \begin{center}
+    \includegraphics[height=80mm]{img/tags.png}
+  \end{center}
+  \caption{NFCタグ登録画面 http://ubif.org/goldfish/tag}
+  \label{fig:tags}
+\end{figure}
+
+\subsection{JavaScriptによるアプリケーションの実装方法}
+アプリケーションの実装は、GoldFishのサンプルページ\cite{sample}を見るとわかりやすい。Webページを作成し、goldfish.jsというJavaScriptライブラリを読み込むとAndroidネイティブのセンサーやGoldFish用の様々な機能が使用できる。1章で挙げた実世界GUIの実装に必要な5つの機能は、goldfish.tag関数で操作対象の指定、goldfish.gyroscopeやaccelerometerなどのセンサーによるジェスチャー入力、goldfish.id関数によるユーザーの判別、goldfish.tcpやajaxによるほかのシステムとの通信の組み合わせによって実現できる。
+
+
+\section{その他のGoldFishアプリケーションの例}
+前章の実世界コピペの他にも、いくつかGoldFishを用いた実世界GUIを紹介する。
+
+\subsection{GoldFishドア}
+大学の研究室の電子錠ドアをGoldFishで開閉するシステムを実装した。（図：\ref{fig:door}）Androidアプリケーション側の実装は、プログラムの基礎は学んだもののあまり書いたことのない大学3年生でも6時間ほどで実装できた。
+
+GoldFishドアは研究室の電子錠ドアに貼ってあるNFCタグに触り、ドアノブをひねるような動きでAndroid端末を回転させると
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[height=50mm]{img/door.png}
+  \end{center}
+  \caption{GoldFishドアのしくみ}
+  \label{fig:door}
+\end{figure}
+
 
 \subsection{マウス}
 
 \subsection{写真立て}
 
 
-\section{GoldFishを使ってアプリケーションを作成する}
-
-解説じゃないんだからここは詳しくしない方がいい
-
-\subsection{実世界コピペを動かしてみよう}
-すぐ動かせるので、実際動かしてみましょう。
-AndroidマーケットからGoldFishをインストールします。NFCタグや学生証やSuicaなどを用意します。
-
-\subsection{アプリを作ってみよう}
-webアプリを作る。goldfish.jsを読み込む。goldfish.foo()という関数が使える。
-
 \section{まとめ}
 おまえらGoldFishつかってみろ。いろいろ捗るぞ
 
-\section{関連研究}
-
-沢山ありすぎると思うが、
-実世界の家電的なものをコントロールするものをいろいろあげる。
-最近のTEIあたりからいろいろリストできないか?
-
-FieldMouseを参照してる論文があれば調べること
-
-\begin{itemize}
-\item 古いもの
-
-\begin{verbatim}
-* ATT at ケンブリッジでやってたやつ
-  持ち歩くマウスの位置認識とかすることによって、どこでもマウスが使えたりする
-  超音波センサか何かでマウスの位置を認識する
-  http://www.pitecan.com/ASCII/diary0012.html に書いた
-  Batというデバイスがマウスみたいに使える
-位置認識してマウスを使う、とかは新しいものもあるのでは
-この論文を参照してる論文をGoogle Scholarなどで調べれば新しい状況がわかると思う
-\end{verbatim}
-
-\item リモコンをなんとかする方法
-
-\begin{verbatim}
-ノーマン本
-そもそもリモコンという考え方が間違っていると思う (増井)
-  特定機器に結び付いている
-  ボタンしか使えない
-\end{verbatim}
-
-\item カメラとか使うもの
-
-\begin{verbatim}
-Ubi-Wa (jstshingi.jp/abst/p/10/1020/cic-tokyoA06.pdf)
- これ必要か?
-\end{verbatim}
-
-\item 装着して家電コントロール
-\begin{verbatim}
-Ubi-Finger
-  いろんなセンサを指に装着するのが面倒くさい
-  これを参照してる論文も捜すべき
-\end{verbatim}
-
-\item 
-\item 
-\item 
-\item 
-\end{itemize}
 
 \begin{thebibliography}{10}
 
+\bibitem{実世界GUI}
+増井俊之. 実世界GUIによる情報家電プログラミング. 情報処理学会ヒューマンインタフェース研究会研究報告 xx-HI-xx, July 2000.
+
+\bibitem{Ubi-Finger}
+塚田浩二，安村通晃: Ubi-Finger:モバイル指向ジェスチャ入力デバイスの研究, 情報処理学会論文誌, Vol.43, No.12, pp.3675-3684 (2002)
+
+\bibitem{pick-and-drop}
+Jun Rekimoto, Pick-and-Drop: A Direct Manipulation Technique for Multiple Computer Environments, Proceedings of UIST'97, pp. 31-39, 1997.
+
+\bibitem{field-mouse}
+椎尾一郎, 増井俊之, 福地健太郎. FieldMouseによる実世界指向インタフェース. コンピュータソフトウェア, Vol.18, No.1, pp. 28-38, January 2001.
+
+\bibitem{github}
+GoldFishソースコード. https://github.com/shokai/goldfish
+
 \bibitem{goldfish}
 GoldFish. http://ubif.org
+
+\bibitem{sample}
+GoldFish App Sample. http://ubif.org/goldfish/sample
 
 \end{thebibliography}
 
