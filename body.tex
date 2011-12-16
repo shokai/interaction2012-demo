@@ -1,12 +1,12 @@
 
 % 和文概要
 \begin{abstract}
-JavaScriptとAndroid NFCを用いて、実世界GUIを実現するためのフレームワークGoldFishを実装した。GoldFishを使うことで、Androidで実世界の物に触れると触れた対象や使用者、状況によって様々なユーザインタフェースを表示させ、操作できるアプリケーションが簡単に作成できる。
+JavaScriptとAndroid NFCで実世界GUIを実現できるフレームワーク GoldFishを実装した。GoldFishを使うことで、Android端末で実世界の物に触れることで操作対象を指定し、ユーザーやコンテキスト、ジェスチャー入力を認識して操作するアプリケーションを簡単に実装する事ができる。
 \end{abstract}
 
 % 英文概要
 \begin{eabstract}
-English abstract.
+GoldFish is Real-world GUI Framework. It enables to develop Android application which detects the target object, user, context and gesture input using simple JavaScript and Android NFC.
 \end{eabstract}
 
 \maketitle
@@ -55,13 +55,13 @@ GoldFishはJavaで実装したネイティブアプリに、WebViewコンポー�
 GoldFishはNFCタグを読んだ際に、あらかじめタグに対して登録されているURLを読み込み、WebViewに表示する。NFCタグはGoldFishのwebサイトで登録できる。（図：\ref{fig:tags}）
 \begin{figure}
   \begin{center}
-    \includegraphics[height=80mm]{img/tags.png}
+    \includegraphics[height=70mm]{img/tags.png}
   \end{center}
   \caption{NFCタグ登録画面 http://ubif.org/goldfish/tag}
   \label{fig:tags}
 \end{figure}
 
-\subsection{JavaScriptによるアプリケーションの実装方法}
+\subsection{JavaScriptによるアプリケーションの実装}
 アプリケーションの実装は、GoldFishのサンプルページ\cite{sample}を見るとわかりやすい。Webページを作成し、goldfish.jsというJavaScriptライブラリを読み込むとAndroidネイティブのセンサーやGoldFish用の様々な機能が使用できる。1章で挙げた実世界GUIの実装に必要な4つの機能は、goldfish.tag関数で操作対象の指定、goldfish.gyroscopeやaccelerometerなどのセンサーによるジェスチャー入力、goldfish.id関数によるユーザーの判別、goldfish.tcpやajaxによるほかのシステムとの通信の組み合わせによって実現できる。
 
 
@@ -75,7 +75,7 @@ GoldFishはNFCタグを読んだ際に、あらかじめタグに対して登録
 
 \begin{figure}
   \begin{center}
-    \includegraphics[height=50mm]{img/door.png}
+    \includegraphics[height=40mm]{img/door.png}
   \end{center}
   \caption{GoldFishドアのしくみ}
   \label{fig:door}
@@ -102,11 +102,11 @@ GoldFishを使うことで実世界GUIアプリケーションを簡単に実装
 \bibitem{Ubi-Finger}
 塚田浩二，安村通晃: Ubi-Finger:モバイル指向ジェスチャ入力デバイスの研究, 情報処理学会論文誌, Vol.43, No.12, pp.3675-3684 (2002)
 
-\bibitem{実世界GUI}
-増井俊之. 実世界GUIによる情報家電プログラミング. 情報処理学会ヒューマンインタフェース研究会研究報告 xx-HI-xx, July 2000.
-
 \bibitem{pick-and-drop}
 Jun Rekimoto, Pick-and-Drop: A Direct Manipulation Technique for Multiple Computer Environments, Proceedings of UIST'97, pp. 31-39, 1997.
+
+\bibitem{実世界GUI}
+Toshiyuki Masui, Itiro Siio. Real-World Graphical User Interfaces. In Proceedings of the International Symposium on Handheld and Ubiquitous Computing (HUC2000), pp.72-84, September 2000. 
 
 \bibitem{goldfish}
 GoldFish. http://ubif.org
